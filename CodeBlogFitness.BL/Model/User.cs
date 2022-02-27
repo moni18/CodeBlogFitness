@@ -20,11 +20,11 @@ namespace CodeBlogFitness.BL.Model
         /// <summary>
         /// Пол.
         /// </summary>
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public DateTime BirthDate { get; }
+        public DateTime BirthDate { get; set; }
         /// <summary>
         /// Вес.
         /// </summary>
@@ -33,6 +33,11 @@ namespace CodeBlogFitness.BL.Model
         /// Рост.
         /// </summary>
         public double Height { get; set; }
+
+        //DateTime nowDate = DateTime.Today;
+        //int age = nowDate.Year - birthDate.Year;
+        //if(birthDate > nowDate.AddYears(-age)) age--;
+        public int Age { get { return DateTime.Now.Year - BirthDate.Year; } }
         #endregion
         /// <summary>
         /// Создать нового пользователя.
@@ -77,9 +82,17 @@ namespace CodeBlogFitness.BL.Model
             Weight = weight;
             Height = height;
         }
+        public User(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
+            }
+            Name = name;
+        }
         public override string ToString()
         {
-            return Name;
+            return Name + " " + Age;
         }
     }
 }
