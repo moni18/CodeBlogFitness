@@ -1,4 +1,5 @@
 ﻿using CodeBlogFitness.BL.Controller;
+using CodeBlogFitness.BL.Model;
 using System;
 
 namespace CodeBlogFitness.CMD
@@ -13,6 +14,7 @@ namespace CodeBlogFitness.CMD
             var name = Console.ReadLine();
 
             var userController = new UserController(name);
+            var eatingController = new EatingController(userController.CurrentUser);
             if (userController.IsNewUser)
             {
                 Console.WriteLine("Введите пол");
@@ -24,7 +26,41 @@ namespace CodeBlogFitness.CMD
                 userController.SetNewUserData(gender, birthDate, weight, height);
             }
             Console.WriteLine(userController.CurrentUser);
+
+            Console.WriteLine("Что вы хотите сделать?");
+            Console.WriteLine("Е - ввести прием пищи");
+            var key = Console.ReadKey();
+            if(key.Key == ConsoleKey.E)
+            {
+                Console.WriteLine();
+                var foods = EnterEating();
+                eatingController.Add(foods.Food, foods.Weight);
+
+                foreach (var item in eatingController.Eating.Foods)
+                {
+                    Console.WriteLine($"\t{item.Key}-{item.Value}");
+                }
+                
+            }
+
             Console.ReadLine();
+        }
+
+        private static (Food Food, double Weight) EnterEating()
+        {
+            Console.Write("Введите имя продукта: ");
+            var food = Console.ReadLine();
+
+            //Console.WriteLine("Введите калорийность: ");
+            var calories = ParseDouble("калорийность");
+            var prots = ParseDouble("белки");
+            var fats = ParseDouble("жиры");
+            var carbs = ParseDouble("углеводы");
+
+            var weight = ParseDouble("вес порции");
+            var product = new Food(food, calories, prots, fats, carbs);
+
+            return (Food: product, Weight: weight);
         }
 
         private static DateTime ParseDateTime()
@@ -32,7 +68,7 @@ namespace CodeBlogFitness.CMD
             DateTime birthDate;
             while (true)
             {
-                Console.WriteLine("Введите дату рождения (dd.mm.yyyy): ");
+                Console.Write("Введите дату рождения (dd.mm.yyyy): ");
 
                 if (DateTime.TryParse(Console.ReadLine(), out birthDate))
                 {
@@ -40,7 +76,7 @@ namespace CodeBlogFitness.CMD
                 }
                 else
                 {
-                    Console.WriteLine("Неверный формат даты рождения");
+                    Console.Write("Неверный формат даты рождения");
                 }
             }
 
@@ -51,7 +87,7 @@ namespace CodeBlogFitness.CMD
         {
             while (true)
             {
-                Console.WriteLine($"Введите {name}: ");
+                Console.Write($"Введите {name}: ");
 
                 if (double.TryParse(Console.ReadLine(), out double value))
                 {
@@ -59,7 +95,7 @@ namespace CodeBlogFitness.CMD
                 }
                 else
                 {
-                    Console.WriteLine($"Неверный формат {name}а");
+                    Console.Write($"Неверный формат поля {name}");
                 }
             }
         }
