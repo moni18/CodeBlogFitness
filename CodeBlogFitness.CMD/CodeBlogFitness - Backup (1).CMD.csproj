@@ -14,20 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Languages\Messages - Копировать.Designer.cs">
+      <DependentUpon>Messages.Designer.cs</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Languages\Messages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Languages\Messages.en-us.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Messages.en-us.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Languages\Messages.ru-ru.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Messages.ru-ru.resx</DependentUpon>
     </Compile>
     <Compile Update="Languages\Resource1.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -37,17 +32,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Languages\Messages_ru_ru.resx">
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Languages\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Languages\Messages.en-us.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages.en-us.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Languages\Messages.ru-ru.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages.ru-ru.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Languages\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>

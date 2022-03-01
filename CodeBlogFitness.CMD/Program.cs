@@ -1,16 +1,20 @@
 ﻿using CodeBlogFitness.BL.Controller;
 using CodeBlogFitness.BL.Model;
 using System;
+using System.Globalization;
+using System.Resources;
 
 namespace CodeBlogFitness.CMD
 {
     class Program
     {
         static void Main(string[] args)
-        {
-            Console.WriteLine("Вас приветствует приложение CodeBlogFitness");
+        {            
+            var culture = CultureInfo.CreateSpecificCulture("en-us");
+            var resourceManager = new ResourceManager("CodeBlogFitness.CMD.Languages.Messages", typeof(Program).Assembly);
+            Console.WriteLine(resourceManager.GetString("Hello", culture));
 
-            Console.WriteLine("Введите имя пользователя");
+            Console.WriteLine(resourceManager.GetString("EnterName", culture));
             var name = Console.ReadLine();
 
             var userController = new UserController(name);
@@ -39,8 +43,7 @@ namespace CodeBlogFitness.CMD
                 foreach (var item in eatingController.Eating.Foods)
                 {
                     Console.WriteLine($"\t{item.Key}-{item.Value}");
-                }
-                
+                }                
             }
 
             Console.ReadLine();
