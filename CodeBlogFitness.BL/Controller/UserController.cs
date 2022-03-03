@@ -41,8 +41,6 @@ namespace CodeBlogFitness.BL.Controller
                 CurrentUser = new User(userName);
                 Users.Add(CurrentUser);
                 IsNewUser = true;
-                Save();
-
             }
         }
         /// <summary>
@@ -51,7 +49,7 @@ namespace CodeBlogFitness.BL.Controller
         /// <returns></returns>
         private List<User> GetUsersData()
         {
-            return Load<List<User>>(USER_FILE_NAME) ?? new List<User>();            
+            return Load<User>() ?? new List<User>();     
         }
 
         public void SetNewUserData(string genderName, DateTime birthDate, double weight = 1, double height = 1)
@@ -68,7 +66,7 @@ namespace CodeBlogFitness.BL.Controller
         /// </summary>
         public void Save()
         {
-            Save(USER_FILE_NAME, Users);
+            Save(Users);
         }
         /// <summary>
         /// Получить данные пользователя.

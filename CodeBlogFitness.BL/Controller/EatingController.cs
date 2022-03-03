@@ -10,12 +10,11 @@ using System.Threading.Tasks;
 namespace CodeBlogFitness.BL.Controller
 {
     public class EatingController :ControllerBase
-    {
-        private const string FOODS_FILE_Name = "foods.dat";
-        private const string EATINGS_FILE_Name = "eatings.dat";
+    {        
         private readonly User user;
         public List<Food> Foods { get; }
         public Eating Eating { get; }
+
         public EatingController(User user)
         {
             this.user = user ?? throw new ArgumentNullException("Пользователь не может быть пустым", nameof(user));
@@ -40,17 +39,17 @@ namespace CodeBlogFitness.BL.Controller
 
         private Eating GetEating()
         {
-            return Load<Eating>(EATINGS_FILE_Name) ?? new Eating(user);
+            return Load<Eating>().FirstOrDefault() ?? new Eating(user);
         }
 
         private List<Food> GetAllFoods()
         {
-            return Load<List<Food>>(FOODS_FILE_Name) ?? new List<Food>();           
+            return Load<Food>() ?? new List<Food>();       
         }
         private void Save()
         {
-            Save(FOODS_FILE_Name, Foods);
-            Save(EATINGS_FILE_Name, Eating);
+            Save(Foods);     
+            Save(new List<Eating>() { Eating});
         }
     }
 }
